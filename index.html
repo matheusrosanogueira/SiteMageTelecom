@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#F4F6F3">
 <link rel="icon" href="assets/logo-mage.webp">
+<link rel="preload" as="image" href="assets/foto-1-hero-celular.webp">
 <title>Mage Telecom</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Mage Telecom: internet de 200 a 800 Mega em Águas Lindas de Goiás. Planos a partir de R$ 89,90 e combos com streaming.">
@@ -81,12 +82,22 @@ nav.menu a:hover{color:var(--ink)}
 
 /* Hero */
 .hero{padding-block:72px 40px}
-.hero-head{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end}
-.hero h1{font-size:clamp(2.8rem,8.4vw,7rem);font-weight:600;letter-spacing:-.05em;line-height:.95}
+.hero-head{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.hero-copy{min-width:0}
+.hero h1{font-size:clamp(2.7rem,6.4vw,5.6rem);font-weight:600;letter-spacing:-.05em;line-height:.95}
 .hero h1 .g{color:var(--accent-ink)}
-.hero-side{max-width:340px;display:grid;gap:22px;padding-bottom:10px}
-.hero-side p{margin:0;color:var(--muted);font-size:1.08rem}
-.hero-side .cta{display:flex;flex-wrap:wrap;gap:10px}
+.hero .lead{margin:26px 0 30px;color:var(--muted);font-size:1.15rem;max-width:40ch}
+.hero .cta{display:flex;flex-wrap:wrap;gap:10px}
+.hero-photo{margin:0;position:relative;border-radius:32px;overflow:hidden;aspect-ratio:4/5;max-width:100%;background:var(--mint)}
+.hero-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.chip{position:absolute;left:18px;bottom:18px;right:18px;max-width:300px;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:18px;
+  background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#0B100D;box-shadow:0 10px 30px -12px rgba(0,0,0,.35);
+  animation:float 5s ease-in-out infinite}
+.chip .dot{width:10px;height:10px;border-radius:50%;background:#2FB81A;box-shadow:0 0 0 5px rgba(47,184,26,.2);flex:none}
+.chip span{display:flex;flex-direction:column;line-height:1.25}
+.chip small{font-size:.74rem;color:#4B5650}
+.chip b{font-family:var(--f-display);font-weight:600;font-size:.98rem}
+@keyframes float{50%{transform:translateY(-6px)}}
 .loc{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600;color:var(--ink-2);margin-bottom:22px}
 .loc i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent);animation:pulse 2.4s ease-in-out infinite}
 @keyframes pulse{50%{box-shadow:0 0 0 8px color-mix(in srgb,var(--accent) 0%,transparent)}}
@@ -127,12 +138,13 @@ nav.menu a:hover{color:var(--ink)}
 .t-local{grid-column:span 4;display:flex;flex-direction:column}
 .t-local .addr{margin-top:auto;display:flex;align-items:center;gap:10px;font-weight:600;font-size:.92rem}
 .t-local .addr svg{width:20px;height:20px;color:var(--accent-ink)}
-@media (max-width:980px){.t-speed,.t-reco{grid-column:span 12}.t-price,.t-apps,.t-local{grid-column:span 6}.t-local{grid-column:span 12}.hero-head{grid-template-columns:1fr}.hero-side{max-width:none}}
+@media (max-width:980px){.t-speed,.t-reco{grid-column:span 12}.t-price,.t-apps,.t-local{grid-column:span 6}.t-local{grid-column:span 12}.hero-head{grid-template-columns:1fr;gap:36px}.hero-photo{aspect-ratio:1/1;max-height:560px}.hero-photo img{object-position:center 35%}}
 @media (max-width:620px){.t-price,.t-apps{grid-column:span 12}.t-reco .qs{grid-template-columns:1fr}.tile{padding:22px}.t-speed{min-height:0}.hero{padding-block:44px 24px}}
 
 /* Chips de apps */
 .apps{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .app{display:inline-flex;align-items:center;gap:7px;padding:7px 12px 7px 10px;border-radius:999px;background:var(--bg);font-weight:600;font-size:.86rem;line-height:1.2;white-space:nowrap}
+.card.feat .app{background:var(--dark-2);color:var(--dark-ink)}
 .app .mk{width:8px;height:8px;border-radius:50%;flex:none}
 .app img{height:18px;width:auto;display:block}
 
@@ -193,23 +205,44 @@ section{padding-block:110px 0}
 @media (max-width:1040px){.plans{grid-template-columns:repeat(2,1fr)}.combos{grid-template-columns:1fr 1fr}}
 @media (max-width:640px){.plans,.combos{grid-template-columns:1fr}.fit{min-height:0}}
 
+/* Banner dos combos */
+.banner{margin:0 0 14px;position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--surface);border:1px solid var(--line)}
+.banner img{display:block;width:100%;height:auto;aspect-ratio:16/6.5;object-fit:cover;object-position:center 45%}
+.banner .txt{position:absolute;inset:0 auto 0 0;width:46%;padding:44px;display:flex;flex-direction:column;justify-content:center;gap:10px;color:#0B100D;
+  background:linear-gradient(90deg,rgba(244,246,243,.94) 0%,rgba(244,246,243,.75) 60%,rgba(244,246,243,0) 100%)}
+.banner .kicker{color:#167409}
+.banner h3{font-size:clamp(1.6rem,3vw,2.5rem);letter-spacing:-.04em}
+.banner p{margin:0;color:#3C4640;max-width:34ch}
+@media (max-width:760px){
+  .banner img{aspect-ratio:4/3;object-position:72% center}
+  .banner .txt{position:static;width:auto;padding:22px;background:var(--surface);color:var(--ink)}
+  .banner .kicker{color:var(--accent-ink)}
+  .banner p{color:var(--muted)}
+}
+
 /* Vantagens (bento) */
 .why{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
 .why .tile{display:flex;flex-direction:column;gap:10px}
-.why .w1{grid-column:span 4;background:var(--dark);color:var(--dark-ink);border-color:var(--dark);min-height:260px}
-.why .w1 p{color:var(--dark-muted)}
-.why .w2{grid-column:span 2;background:var(--mint);border-color:transparent}
-.why .w3,.why .w4,.why .w5{grid-column:span 2}
+.why .w1{grid-column:span 4}
+.why .w2{grid-column:span 2;background:var(--mint);border-color:transparent;min-height:360px}
+.why .w3{grid-column:span 3}
+.why .stack{grid-column:span 3;display:grid;gap:14px;min-width:0}
 .why h3{font-size:1.35rem;letter-spacing:-.025em}
 .why p{margin:0;color:var(--muted);font-size:.95rem;max-width:42ch}
 .why .w2 p{color:var(--ink-2)}
 .why .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink);margin-bottom:auto}
-.why .w1 .ic{background:var(--dark-2);color:var(--accent)}
 .why .w2 .ic{background:var(--surface)}
 .why .ic svg{width:22px;height:22px}
-.why .bigtxt{font-family:var(--f-display);font-weight:600;font-size:clamp(2rem,4vw,3rem);letter-spacing:-.04em;line-height:1;margin-top:auto}
-@media (max-width:900px){.why .w1{grid-column:span 6}.why .w2,.why .w3,.why .w4,.why .w5{grid-column:span 3}}
-@media (max-width:560px){.why .w2,.why .w3,.why .w4,.why .w5{grid-column:span 6}.why .w1{min-height:0}}
+.why .stack .tile{min-height:0}
+.why .stack .ic{margin-bottom:12px}
+.why .ph{display:block;margin:0;padding:0;border:0;min-height:360px;background:var(--dark)}
+.why .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.why .ph:hover img{transform:scale(1.03)}
+.why .ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:90px 28px 26px;background:linear-gradient(to top,rgba(8,12,10,.86) 0%,rgba(8,12,10,.5) 55%,rgba(8,12,10,0) 100%)}
+.why .ph h3{color:#fff}
+.why .ph p{color:rgba(255,255,255,.84);margin-top:6px}
+@media (max-width:900px){.why .w1,.why .w2,.why .w3,.why .stack{grid-column:span 6}.why .w2{min-height:0}.why .stack{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.why .stack{grid-template-columns:1fr}.why .ph{min-height:300px}.why .ph figcaption{padding:70px 22px 20px}}
 
 /* Cobertura + teste */
 .duo{display:grid;grid-template-columns:1.4fr 1fr;gap:14px}
@@ -321,16 +354,20 @@ footer a:hover{color:var(--dark-ink)}
 <main id="inicio">
   <div class="hero">
     <div class="wrap">
-      <span class="loc"><i></i>Águas Lindas de Goiás</span>
       <div class="hero-head">
-        <h1>Internet rápida.<br>Atendimento <span class="g">daqui.</span></h1>
-        <div class="hero-side">
-          <p>Planos de 200 a 800 Mega e combos com streaming, de um provedor que está na sua cidade.</p>
+        <div class="hero-copy">
+          <span class="loc"><i></i>Águas Lindas de Goiás</span>
+          <h1>Internet rápida.<br>Atendimento <span class="g">daqui.</span></h1>
+          <p class="lead">Planos de 200 a 800 Mega e combos com streaming, de um provedor que está na sua cidade.</p>
           <div class="cta">
             <a class="btn btn-accent" href="#planos" data-tab="internet">Ver planos</a>
             <a class="btn btn-line" href="#cobertura">Consultar endereço</a>
           </div>
         </div>
+        <figure class="hero-photo">
+          <img src="assets/foto-1-hero-celular.webp" alt="Mulher sorrindo enquanto usa o celular no sofá de casa" width="900" height="1117">
+          <figcaption class="chip"><span class="dot"></span><span><small>Mais escolhido</small><b class="num">600 Mega · R$ 109,90/mês</b></span></figcaption>
+        </figure>
       </div>
 
       <div class="bento">
@@ -408,6 +445,14 @@ footer a:hover{color:var(--dark-ink)}
       </div>
       <div class="panel" role="tabpanel" id="panel-internet" aria-labelledby="tab-internet"><div class="plans" id="plans"></div></div>
       <div class="panel" role="tabpanel" id="panel-combos" aria-labelledby="tab-combos" hidden>
+        <figure class="banner">
+          <img src="assets/foto-2-combos-familia.webp" alt="Família assistindo TV no sofá com um pote de pipoca" width="1376" height="768" loading="lazy">
+          <figcaption class="txt">
+            <span class="kicker">Combos</span>
+            <h3>Internet e streaming numa conta só.</h3>
+            <p>Filmes, séries, música e desenhos para a família toda, a partir de R$ 109,90/mês.</p>
+          </figcaption>
+        </figure>
         <div class="combos" id="combos-list"></div>
         <p class="fine">Economia calculada com o plano mais barato de cada app assinado direto no site do serviço (HBO Max básico com anúncios R$ 29,90; Disney+ padrão com anúncios R$ 29,90; Deezer Premium R$ 24,90), valores consultados em outubro de 2026. Ubook Plus e PlayKids não entram na conta.</p>
       </div>
@@ -420,30 +465,30 @@ footer a:hover{color:var(--dark-ink)}
         <div><span class="kicker">Por que a Mage</span><h2>Perto de você, de verdade.</h2></div>
       </div>
       <div class="why">
-        <div class="tile w1 rv">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
-          <h3>Empresa de Águas Lindas</h3>
-          <p>Escritório na Quadra 22. Quando precisar, você sabe onde nos encontrar e fala com quem conhece a cidade.</p>
-        </div>
+        <figure class="tile ph w1 rv">
+          <img src="assets/foto-4-tecnico-instalacao.webp" alt="Técnico entregando o roteador Wi-Fi a uma cliente na porta de casa" width="1200" height="896" loading="lazy">
+          <figcaption><h3>Empresa de Águas Lindas</h3><p>Escritório na Quadra 22. Você fala com gente daqui, que conhece o seu bairro.</p></figcaption>
+        </figure>
         <div class="tile w2 rv">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></div>
           <h3>Desconto de pontualidade</h3>
           <p>Pagando em dia, o preço com desconto vale todo mês.</p>
         </div>
-        <div class="tile w3 rv">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5a15 15 0 0 1 20 0"/><path d="M5 12a10.5 10.5 0 0 1 14 0"/><path d="M8.5 15.5a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r="1"/></svg></div>
-          <h3>Até 800 Mega</h3>
-          <p>Quatro velocidades para cada tipo de casa.</p>
-        </div>
-        <div class="tile w4 rv">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="m10 9 5 2.5-5 2.5Z"/><path d="M8 21h8"/></svg></div>
-          <h3>5 apps nos combos</h3>
-          <p>Ubook Plus, Deezer, HBO Max, Disney+ e PlayKids.</p>
-        </div>
-        <div class="tile w5 rv">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-wa"/></svg></div>
-          <h3>Tudo pelo WhatsApp</h3>
-          <p>Contratação, suporte e segunda via no mesmo número.</p>
+        <figure class="tile ph w3 rv">
+          <img src="assets/foto-3-casa-conectada.webp" alt="Jovem comemorando no videogame enquanto a irmã trabalha no notebook" width="1200" height="896" loading="lazy">
+          <figcaption><h3>Até 800 Mega</h3><p>Jogo, trabalho e streaming ao mesmo tempo, sem ninguém disputar a internet.</p></figcaption>
+        </figure>
+        <div class="stack">
+          <div class="tile rv">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="m10 9 5 2.5-5 2.5Z"/><path d="M8 21h8"/></svg></div>
+            <h3>5 apps nos combos</h3>
+            <p>Ubook Plus, Deezer, HBO Max, Disney+ e PlayKids.</p>
+          </div>
+          <div class="tile rv">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-wa"/></svg></div>
+            <h3>Tudo pelo WhatsApp</h3>
+            <p>Contratação, suporte e segunda via no mesmo número.</p>
+          </div>
         </div>
       </div>
     </div>

@@ -8,6 +8,12 @@ MAGE TELECOM LTDA · CNPJ 48.527.149/0001-50 · Quadra 22, Lote 15, Sala 02.
 - `index.html` — página única com todo o CSS e JavaScript.
 - `assets/logo-mage.webp` — logo com "TELECOM" escuro (fundos claros).
 - `assets/logo-mage-branca.webp` — logo com "TELECOM" branco (fundos escuros e rodapé).
+- `assets/foto-1-hero-celular.webp` — foto do topo.
+- `assets/foto-2-combos-familia.webp` — banner da aba de combos.
+- `assets/foto-3-casa-conectada.webp` — bloco "Até 800 Mega" nas vantagens.
+- `assets/foto-4-tecnico-instalacao.webp` — bloco "Empresa de Águas Lindas" nas vantagens.
+
+Para trocar uma foto, substitua o arquivo em `assets/` mantendo o mesmo nome.
 
 ## Seções
 
