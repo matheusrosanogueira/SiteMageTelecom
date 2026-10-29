@@ -30,7 +30,7 @@
 <link rel="preload" as="image" href="assets/foto-1-hero-celular.webp" fetchpriority="high">
 <title>Mage Telecom | Internet em Águas Lindas de Goiás - Planos de 200 a 800 Mega</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Provedor de internet em Águas Lindas de Goiás. Planos de 200 a 800 Mega a partir de R$ 89,90/mês, combos com HBO Max, Disney+ e Deezer e atendimento local. Contrate pelo WhatsApp.">
+<meta name="description" content="Provedor de internet em Águas Lindas de Goiás com mais de 500 clientes. Planos de 200 a 800 Mega a partir de R$ 89,90/mês, combos com HBO Max, Disney+ e Deezer e atendimento local. Contrate pelo WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Figtree:wght@400;500;600;700&display=swap">
@@ -258,6 +258,19 @@ section{padding-block:110px 0}
 .why .ph p{color:rgba(255,255,255,.84);margin-top:6px}
 @media (max-width:900px){.why .w1,.why .w2,.why .w3,.why .stack{grid-column:span 6}.why .w2{min-height:0}.why .stack{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.why .stack{grid-template-columns:1fr}.why .ph{min-height:300px}.why .ph figcaption{padding:70px 22px 20px}}
+
+/* Prova social e números */
+.proof{display:flex;align-items:center;gap:12px;margin:28px 0 0;font-size:.95rem;color:var(--ink-2)}
+.proof b{color:var(--ink)}
+.pi{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--accent-soft);color:var(--accent-ink)}
+.pi svg{width:20px;height:20px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-bottom:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.stats > div{padding:30px 28px;display:flex;flex-direction:column;gap:6px}
+.stats > div + div{border-left:1px solid var(--line)}
+.stats b{font-family:var(--f-display);font-weight:600;font-size:clamp(2.2rem,4.4vw,3.4rem);letter-spacing:-.045em;line-height:1}
+.stats > div:first-child b{color:var(--accent-ink)}
+.stats > div > span{color:var(--muted);font-size:.95rem}
+@media (max-width:700px){.stats{grid-template-columns:1fr}.stats > div + div{border-left:0;border-top:1px solid var(--line)}.stats > div{padding:22px}}
 
 /* Como contratar */
 .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;counter-reset:none}
@@ -549,6 +562,7 @@ summary:hover{color:var(--accent-ink)}
             <a class="btn btn-accent" href="#planos" data-tab="internet">Ver planos</a>
             <a class="btn btn-line" href="#cobertura">Consultar endereço</a>
           </div>
+          <p class="proof in d2"><span class="pi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/></svg></span><span><b class="num">+500 clientes</b> já navegam com a Mage em Águas Lindas</span></p>
         </div>
         <figure class="hero-photo in d1" id="hero-photo">
           <img src="assets/foto-1-hero-celular.webp" alt="Mulher sorrindo enquanto usa a internet da Mage Telecom no celular, no sofá de casa" width="900" height="1117" fetchpriority="high">
@@ -653,6 +667,11 @@ summary:hover{color:var(--accent-ink)}
     <div class="wrap">
       <div class="sec-head rv">
         <div><span class="kicker">Por que a Mage</span><h2>Perto de você, de verdade.</h2></div>
+      </div>
+      <div class="stats rv" id="stats">
+        <div><b class="num">+<span data-count="500">500</span></b><span>clientes atendidos em Águas Lindas</span></div>
+        <div><b class="num"><span data-count="800">800</span> Mega</b><span>de velocidade máxima</span></div>
+        <div><b class="num"><span data-count="5">5</span> apps</b><span>de streaming nos combos</span></div>
       </div>
       <div class="why">
         <figure class="tile ph w1 rv">
@@ -990,6 +1009,14 @@ function countUp(root, delay = 0, dur = 1400){
   });
 }
 countUp(document.querySelector(".t-speed"), 350, 1600);
+
+// Números da seção Vantagens contam quando aparecem
+(() => {
+  const st = document.getElementById("stats");
+  if (calm || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { countUp(st, 150, 1500); io.disconnect(); } }, {threshold:0.4});
+  io.observe(st);
+})();
 
 // Cartões de plano entram quando a seção aparece e a cada troca de aba
 function playPanel(panel){
