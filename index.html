@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E1512">
+<link rel="icon" href="assets/logo-mage.webp">
+<title>Mage Telecom</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Mage Telecom: internet de 200 a 800 Mega em Águas Lindas de Goiás. Planos a partir de R$ 89,90 e combos com streaming.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: base clara e neutra, verde só como acento (botão principal, plano em destaque, detalhes).
+   Hero em duas colunas com o recomendador; planos em cartões brancos com um cartão escuro em destaque; rodapé grafite. */
+:root{
+  --bg:#F6F7F6; --surface:#FFFFFF; --ink:#0E1512; --muted:#5A6560; --line:#E2E6E3;
+  --accent:#34B81F; --accent-ink:#187A0B; --accent-soft:#EBF7E7;
+  --feat:#0E1512; --feat-ink:#F3F6F4; --feat-muted:#9AA6A0; --feat-line:#26302B;
+  --wa:#1FA855;
+  --shadow:0 1px 2px rgba(14,21,18,.05),0 12px 32px -12px rgba(14,21,18,.14);
+  --logo-light:block; --logo-dark:none;
+  --f-display:"Sora",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B0F0D; --surface:#131916; --ink:#EEF2EF; --muted:#97A39D; --line:#232C27;
+  --accent:#5AD83C; --accent-ink:#7FE365; --accent-soft:#15261A;
+  --feat:#1A221E; --feat-ink:#F3F6F4; --feat-muted:#9AA6A0; --feat-line:#2C3631;
+  --wa:#25C062; --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -12px rgba(0,0,0,.6);
+  --logo-light:none; --logo-dark:block; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B0F0D; --surface:#131916; --ink:#EEF2EF; --muted:#97A39D; --line:#232C27;
+  --accent:#5AD83C; --accent-ink:#7FE365; --accent-soft:#15261A;
+  --feat:#1A221E; --feat-ink:#F3F6F4; --feat-muted:#9AA6A0; --feat-line:#2C3631;
+  --wa:#25C062; --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -12px rgba(0,0,0,.6);
+  --logo-light:none; --logo-dark:block; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+a{color:inherit}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.025em;line-height:1.08;font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+.label{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink)}
+.num{font-variant-numeric:tabular-nums}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 .95rem/1 var(--f-body);padding:13px 20px;border-radius:12px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
+.btn:active{transform:translateY(1px)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-primary{background:var(--ink);color:var(--surface)}
+.btn-primary:hover{background:color-mix(in srgb,var(--ink) 85%,var(--accent))}
+.btn-line{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.btn-line:hover{border-color:var(--muted)}
+.btn-accent{background:var(--accent);color:#06200A}
+.btn-accent:hover{background:color-mix(in srgb,var(--accent) 88%,#fff)}
+.btn-block{width:100%}
+
+/* Header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:28px;padding-block:12px}
+.logo{display:flex;align-items:center;text-decoration:none;flex:none}
+.brandlogo{display:block;height:40px;width:auto}
+.brandlogo.on-light{display:var(--logo-light)}
+.brandlogo.on-dark{display:var(--logo-dark)}
+nav.menu{display:flex;gap:26px;font-weight:500;font-size:.95rem}
+nav.menu a{text-decoration:none;color:var(--muted)}
+nav.menu a:hover{color:var(--ink)}
+.top .btn{margin-left:auto;padding:11px 16px}
+@media (max-width:860px){nav.menu{display:none}}
+@media (max-width:420px){.brandlogo{height:32px}.top .btn{font-size:.88rem;padding:10px 13px}}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:var(--surface)}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:56px 56px;opacity:.55;
+  -webkit-mask:radial-gradient(70% 90% at 85% 10%,#000 0%,transparent 70%);mask:radial-gradient(70% 90% at 85% 10%,#000 0%,transparent 70%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;padding-block:72px 80px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;padding:6px 12px 6px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink)}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 25%,transparent)}
+.hero h1{font-size:clamp(2.3rem,5.2vw,3.9rem);margin:20px 0 18px}
+.hero h1 span{color:var(--accent-ink)}
+.lead{font-size:1.15rem;color:var(--muted);max-width:44ch;margin:0 0 30px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:12px 32px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+.facts div{display:flex;flex-direction:column}
+.facts b{font-family:var(--f-display);font-weight:600;font-size:1.5rem;letter-spacing:-.02em}
+.facts span{font-size:.88rem;color:var(--muted)}
+
+/* Recommender */
+.reco{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow)}
+.reco h2{font-size:1.2rem}
+.reco p.sub{color:var(--muted);margin:4px 0 20px;font-size:.92rem}
+.q{margin:0 0 16px;border:0;padding:0;min-width:0}
+.q legend{font-weight:600;font-size:.88rem;margin-bottom:8px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;background:var(--bg);border:1px solid var(--line);border-radius:12px}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{text-align:center;padding:9px 6px;border-radius:9px;font-weight:600;font-size:.86rem;cursor:pointer;color:var(--muted);transition:all .15s;line-height:1.25}
+.seg input:checked+label{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:1px}
+.result{margin-top:20px;padding:18px;border-radius:14px;background:var(--feat);color:var(--feat-ink)}
+.result .top-r{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.result .mb{font-family:var(--f-display);font-weight:600;font-size:2.4rem;letter-spacing:-.03em;line-height:1}
+.result .mb small{font-size:1rem;color:var(--feat-muted);margin-left:4px;font-weight:500;letter-spacing:0}
+.result .pr{font-weight:600}
+.result .pr b{font-family:var(--f-display);font-size:1.15rem;color:var(--accent)}
+.result .why{font-size:.9rem;color:var(--feat-muted);margin:8px 0 16px}
+
+/* Sections */
+section{padding-block:96px 0}
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 40px;margin-bottom:40px}
+.head h2{font-size:clamp(1.9rem,3.6vw,2.7rem);margin-top:10px}
+.head p{max-width:44ch;color:var(--muted);margin:0}
+
+/* Plans */
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 22px;display:flex;flex-direction:column;gap:18px;position:relative}
+.plan.feat{background:var(--feat);color:var(--feat-ink);border-color:var(--feat);box-shadow:var(--shadow)}
+.badge{position:absolute;top:22px;right:20px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:var(--accent);color:#06200A}
+.speed{font-family:var(--f-display);font-weight:600;letter-spacing:-.04em;line-height:1;font-size:3.1rem}
+.speed small{font-size:1rem;letter-spacing:0;font-weight:500;color:var(--muted);margin-left:4px}
+.plan.feat .speed small{color:var(--feat-muted)}
+.fit{margin:0;color:var(--muted);font-size:.93rem;min-height:3.2em}
+.plan.feat .fit{color:var(--feat-muted)}
+.price{display:flex;align-items:baseline;gap:2px;padding-top:18px;border-top:1px solid var(--line)}
+.plan.feat .price{border-top-color:var(--feat-line)}
+.price .rs{font-weight:600;font-size:.95rem;margin-right:4px}
+.price .int{font-family:var(--f-display);font-weight:600;font-size:2.4rem;letter-spacing:-.03em;line-height:1}
+.price .cents{font-family:var(--f-display);font-weight:600;font-size:1.1rem}
+.price .per{color:var(--muted);font-size:.9rem;margin-left:4px}
+.plan.feat .price .per{color:var(--feat-muted)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:.92rem}
+.checks li{display:flex;gap:10px;align-items:flex-start}
+.checks svg{width:18px;height:18px;flex:none;color:var(--accent-ink);margin-top:3px}
+.plan.feat .checks svg{color:var(--accent)}
+.plan .btn{margin-top:auto}
+.plan.feat .btn-line{background:transparent;color:var(--feat-ink);border-color:var(--feat-line)}
+
+/* Combos */
+.combos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.combo{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:26px 22px;display:flex;flex-direction:column;gap:18px}
+.combo .speed{font-size:2.6rem}
+.inc{display:grid;gap:12px}
+.inc h4{margin:0;font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.apps{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.app{display:inline-flex;align-items:center;gap:8px;padding:7px 12px 7px 9px;border-radius:10px;background:var(--bg);border:1px solid var(--line);font-weight:600;font-size:.9rem;line-height:1.2}
+.app .mk{width:8px;height:8px;border-radius:50%;flex:none}
+.app img{height:20px;width:auto;display:block}
+.alt{display:grid;gap:6px}
+.alt .or{font-size:.78rem;color:var(--muted);font-weight:600;padding-left:2px}
+.pack{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pack .and{color:var(--muted);font-weight:600}
+.combo .note{font-size:.82rem;color:var(--muted);margin:-10px 0 0}
+.combo .btn{margin-top:auto}
+
+/* Benefits */
+.ben{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.ben div{padding:24px 22px;border-radius:20px;background:var(--surface);border:1px solid var(--line)}
+.ben svg{width:24px;height:24px;color:var(--accent-ink)}
+.ben h3{font-size:1.05rem;margin:16px 0 6px;letter-spacing:-.01em}
+.ben p{margin:0;color:var(--muted);font-size:.93rem}
+
+/* Coverage */
+.cover{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:44px;position:relative;overflow:hidden}
+.cover::after{content:"";position:absolute;width:420px;height:420px;left:-140px;bottom:-220px;border-radius:50%;background:var(--accent-soft);pointer-events:none}
+.cover > *{position:relative;z-index:1}
+.cover h2{font-size:clamp(1.8rem,3.2vw,2.4rem);margin-top:10px}
+.cover p{color:var(--muted);max-width:40ch}
+form.cep{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form.cep label{display:flex;flex-direction:column;gap:6px;font-size:.85rem;font-weight:600;min-width:0}
+form.cep .full{grid-column:1/-1}
+form.cep input{font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%;transition:border-color .15s,box-shadow .15s}
+form.cep input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
+form.cep .btn{grid-column:1/-1}
+.formmsg{grid-column:1/-1;font-size:.9rem;color:var(--muted);margin:0;min-height:1.4em}
+.formmsg a{color:var(--accent-ink);font-weight:700}
+
+/* FAQ */
+.faq-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
+.faq{display:grid;gap:0;border-top:1px solid var(--line)}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;font-size:1.02rem;padding:20px 0;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";width:10px;height:10px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg) translateY(-3px);transition:transform .2s;flex:none}
+details[open] summary::after{transform:rotate(-135deg)}
+details p{margin:0 0 20px;color:var(--muted);max-width:60ch}
+
+/* Footer */
+footer{background:#0E1512;color:#D9E0DC;padding-block:64px 32px;margin-top:96px}
+footer .grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+footer .brandlogo{height:48px}
+footer h4{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 14px;color:#8E9A94;font-weight:700}
+footer p{margin:0 0 6px;font-size:.95rem}
+footer a{color:#fff}
+.phone{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.phone .n{font-family:var(--f-display);font-weight:600;font-size:1.3rem;color:#fff;user-select:all}
+.copy{font:600 .78rem/1 var(--f-body);background:#1F2925;color:#fff;border:1px solid #2E3934;border-radius:8px;padding:7px 10px;cursor:pointer}
+.legal{border-top:1px solid #222C27;margin-top:48px;padding-top:22px;font-size:.82rem;color:#8E9A94;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+.float-wa{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:8;width:56px;height:56px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 10px 28px -8px rgba(0,0,0,.4);color:#fff}
+.float-wa svg{width:28px;height:28px}
+
+@media (max-width:1020px){.plans{grid-template-columns:repeat(2,1fr)}.ben{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:880px){.hero .wrap{grid-template-columns:1fr;gap:40px;padding-block:48px 56px}.combos{grid-template-columns:1fr}.cover{grid-template-columns:1fr;padding:28px 22px;gap:28px}.faq-wrap{grid-template-columns:1fr;gap:20px}footer .grid{grid-template-columns:1fr}}
+@media (max-width:560px){.plans,.ben{grid-template-columns:1fr}form.cep{grid-template-columns:1fr}section{padding-block:64px 0}.fit{min-height:0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="Mage Telecom, início"><img class="brandlogo on-light" src="assets/logo-mage.webp" alt="Mage Telecom" width="700" height="200"><img class="brandlogo on-dark" src="assets/logo-mage-branca.webp" alt="" width="700" height="200"></a>
+    <nav class="menu" aria-label="Principal">
+      <a href="#planos">Planos</a><a href="#combos">Combos</a><a href="#cobertura">Cobertura</a><a href="#duvidas">Dúvidas</a><a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn-primary js-wa" data-msg="Olá! Quero contratar a internet da Mage Telecom." href="#"><svg><use href="#i-wa"/></svg>Assinar</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="pill"><i></i>Provedor local em Águas Lindas de Goiás</span>
+        <h1>Internet rápida e estável para <span>a sua casa.</span></h1>
+        <p class="lead">Planos de 200 a 800 Mega e combos com streaming, com atendimento de quem está aqui na cidade.</p>
+        <div class="cta">
+          <a class="btn btn-accent" href="#planos">Ver planos</a>
+          <a class="btn btn-line" href="#cobertura">Consultar meu endereço</a>
+        </div>
+        <div class="facts">
+          <div><b class="num">R$ 89,90</b><span>planos a partir de</span></div>
+          <div><b class="num">800 Mega</b><span>velocidade máxima</span></div>
+          <div><b>5 apps</b><span>de streaming nos combos</span></div>
+        </div>
+      </div>
+
+      <div class="reco" aria-labelledby="reco-t">
+        <h2 id="reco-t">Descubra o plano ideal</h2>
+        <p class="sub">Duas perguntas rápidas sobre a sua casa.</p>
+        <fieldset class="q">
+          <legend>Quantas pessoas usam a internet?</legend>
+          <div class="seg">
+            <input type="radio" name="pessoas" id="p1" value="0"><label for="p1">1 a 2</label>
+            <input type="radio" name="pessoas" id="p2" value="1" checked><label for="p2">3 a 4</label>
+            <input type="radio" name="pessoas" id="p3" value="2"><label for="p3">5 ou mais</label>
+          </div>
+        </fieldset>
+        <fieldset class="q">
+          <legend>O que mais fazem online?</legend>
+          <div class="seg">
+            <input type="radio" name="uso" id="u1" value="0"><label for="u1">Redes sociais</label>
+            <input type="radio" name="uso" id="u2" value="1" checked><label for="u2">Filmes e séries</label>
+            <input type="radio" name="uso" id="u3" value="2"><label for="u3">Jogos e trabalho</label>
+          </div>
+        </fieldset>
+        <div class="result" aria-live="polite">
+          <div class="top-r">
+            <div class="mb num" id="r-mb">600<small>Mega</small></div>
+            <div class="pr">por <b class="num" id="r-pr">R$ 109,90</b>/mês</div>
+          </div>
+          <p class="why" id="r-why">Streaming em vários aparelhos ao mesmo tempo.</p>
+          <a class="btn btn-accent btn-block" id="r-cta" href="#"><svg><use href="#i-wa"/></svg>Quero esse plano</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="planos">
+    <div class="wrap">
+      <div class="head">
+        <div><span class="label">Planos de internet</span><h2>Escolha a sua velocidade</h2></div>
+        <p>Quatro opções para cada tipo de casa. Contrate pelo WhatsApp e fale direto com a nossa equipe.</p>
+      </div>
+      <div class="plans" id="plans"></div>
+    </div>
+  </section>
+
+  <section id="combos">
+    <div class="wrap">
+      <div class="head">
+        <div><span class="label">Internet + streaming</span><h2>Combos com entretenimento incluso</h2></div>
+        <p>Audiolivros, música, filmes e desenhos junto com a sua internet, numa conta só.</p>
+      </div>
+      <div class="combos" id="combos-list"></div>
+    </div>
+  </section>
+
+  <section id="vantagens">
+    <div class="wrap">
+      <div class="head"><div><span class="label">Por que a Mage</span><h2>Perto de você, de verdade</h2></div></div>
+      <div class="ben">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg><h3>Empresa da cidade</h3><p>Escritório na Quadra 22, em Águas Lindas. Você sabe onde nos encontrar.</p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.5a15 15 0 0 1 20 0"/><path d="M5 12a10.5 10.5 0 0 1 14 0"/><path d="M8.5 15.5a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r="1"/></svg><h3>Até 800 Mega</h3><p>Velocidade para assistir, jogar e trabalhar com vários aparelhos ligados.</p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="m10 9 5 2.5-5 2.5Z"/><path d="M8 21h8"/></svg><h3>Streaming no plano</h3><p>Ubook Plus, Deezer, HBO Max, Disney+ e PlayKids nos combos.</p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><h3>Desconto de pontualidade</h3><p>Pagando em dia, você garante o preço com desconto todo mês.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cobertura">
+    <div class="wrap">
+      <div class="cover">
+        <div>
+          <span class="label">Cobertura</span>
+          <h2>A Mage chega na sua rua?</h2>
+          <p>Informe seu endereço e a nossa equipe confirma pelo WhatsApp se já atendemos a sua região.</p>
+        </div>
+        <form class="cep" id="cep-form" novalidate>
+          <label class="full" for="f-nome">Seu nome<input id="f-nome" name="nome" autocomplete="name" placeholder="Maria Souza"></label>
+          <label for="f-cep">CEP<input id="f-cep" name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="72910-000" maxlength="9"></label>
+          <label for="f-num">Quadra / lote / nº<input id="f-num" name="num" placeholder="Qd. 10, Lt. 5"></label>
+          <label class="full" for="f-bairro">Bairro<input id="f-bairro" name="bairro" placeholder="Jardim Brasília"></label>
+          <button class="btn btn-primary" type="submit"><svg><use href="#i-wa"/></svg>Consultar pelo WhatsApp</button>
+          <p class="formmsg" id="formmsg"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="duvidas">
+    <div class="wrap faq-wrap">
+      <div><span class="label">Dúvidas frequentes</span><h2 style="font-size:clamp(1.9rem,3.6vw,2.7rem);margin-top:10px">Perguntas de quem vai assinar</h2></div>
+      <div class="faq">
+        <details><summary>Como faço para contratar?</summary><p>Escolha o plano e toque em "Assinar". A conversa abre no nosso WhatsApp com o plano já escrito na mensagem. Se preferir, ligue para o 0800 110 9000 ou visite o escritório.</p></details>
+        <details><summary>Como sei se a Mage atende o meu endereço?</summary><p>Preencha o formulário de cobertura com seu CEP e endereço. A equipe responde confirmando a disponibilidade na sua rua.</p></details>
+        <details><summary>Como funciona o desconto de pontualidade?</summary><p>O valor dos combos já está com o desconto aplicado. Ele vale para as faturas pagas até o vencimento.</p></details>
+        <details><summary>Posso trocar de plano depois?</summary><p>Pode. Fale com a gente pelo WhatsApp e indicamos a melhor opção para o seu uso atual.</p></details>
+        <details><summary>Como peço a segunda via do boleto?</summary><p>Peça pelo WhatsApp ou pelo 0800 110 9000 informando o nome ou CPF do titular.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contato">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <a class="logo" href="#inicio"><img class="brandlogo" src="assets/logo-mage-branca.webp" alt="Mage Telecom" width="700" height="200"></a>
+        <p style="margin-top:18px;max-width:34ch;color:#A9B4AE">Internet para casas e empresas de Águas Lindas de Goiás.</p>
+      </div>
+      <div>
+        <h4>Atendimento</h4>
+        <div class="phone"><span class="n num" id="tel">0800 110 9000</span><button class="copy" type="button" data-copy="0800 110 9000">Copiar</button></div>
+        <p style="margin-top:8px">WhatsApp e ligação gratuita</p>
+        <p><a href="https://www.instagram.com/mage.telecom/" target="_blank" rel="noopener">@mage.telecom no Instagram</a></p>
+      </div>
+      <div>
+        <h4>Endereço</h4>
+        <p>Quadra 22, Lote 15, Sala 02</p>
+        <p>Águas Lindas de Goiás – GO</p>
+      </div>
+    </div>
+    <div class="legal">
+      <span>MAGE TELECOM LTDA · CNPJ 48.527.149/0001-50</span>
+      <span>Preços mensais. Combos com desconto de pontualidade. Sujeito à disponibilidade técnica no endereço.</span>
+    </div>
+  </div>
+</footer>
+
+<a class="float-wa js-wa" data-msg="Olá! Vim pelo site e quero saber mais sobre os planos da Mage Telecom." href="#" aria-label="Falar no WhatsApp"><svg><use href="#i-wa"/></svg></a>
+
+<script>
+// Número do WhatsApp (DDI 55 + número). Ajuste se o WhatsApp da empresa for outro.
+const WHATSAPP = "558001109000";
+const wa = msg => "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg);
+
+const PLANS = [
+  {mb:200, int:"89",  c:"90", fit:"Para redes sociais, estudos e vídeos.", checks:["1 a 2 pessoas","Navegação e redes sociais","Vídeos em HD"]},
+  {mb:400, int:"99",  c:"90", fit:"Família conectada com streaming.", checks:["3 a 4 pessoas","Séries e filmes em HD","Aulas e chamadas de vídeo"]},
+  {mb:600, int:"109", c:"90", fit:"Vários aparelhos ao mesmo tempo, sem travar.", feat:true, checks:["Casa com muitos aparelhos","Streaming em várias telas","Downloads mais rápidos"]},
+  {mb:800, int:"129", c:"90", fit:"Para jogos online, home office e casa cheia.", checks:["5 pessoas ou mais","Jogos online","Home office e arquivos pesados"]}
+];
+
+/* Aplicativos dos combos. Para usar a logo oficial, preencha "img" com o arquivo (data URI ou caminho). */
+const APPS = {
+  "Ubook Plus":{mk:"U", c:"#E4572E", img:""},
+  "Deezer":    {mk:"D", c:"#A238FF", img:""},
+  "HBO Max":   {mk:"M", c:"#002BE7", img:""},
+  "Disney+":   {mk:"D+",c:"#0F3B7D", img:""},
+  "PlayKids":  {mk:"P", c:"#8B3DDB", img:""}
+};
+const COMBOS = [
+  {mb:400, int:"109", c:"90", base:["Ubook Plus"], choose:[["Deezer"],["PlayKids"]]},
+  {mb:600, int:"119", c:"90", base:["Ubook Plus"], choose:[["HBO Max"],["Disney+"],["PlayKids"]]},
+  {mb:800, int:"149", c:"90", base:["Ubook Plus"], choose:[["HBO Max","Deezer"],["Disney+","PlayKids"]]}
+];
+
+const chip = n => { const a = APPS[n];
+  return a.img ? `<span class="app"><img src="${a.img}" alt="${n}"></span>`
+               : `<span class="app"><span class="mk" style="background:${a.c}"></span>${n}</span>`; };
+const price = p => `<div class="price"><span class="rs">R$</span><span class="int num">${p.int}</span><span class="cents num">,${p.c}</span><span class="per">/mês</span></div>`;
+
+document.getElementById("plans").innerHTML = PLANS.map(p => `
+  <article class="plan${p.feat?" feat":""}">
+    ${p.feat?'<span class="badge">Mais escolhido</span>':""}
+    <div class="speed num">${p.mb}<small>Mega</small></div>
+    <p class="fit">${p.fit}</p>
+    ${price(p)}
+    <ul class="checks">${p.checks.map(c=>`<li><svg><use href="#i-check"/></svg>${c}</li>`).join("")}</ul>
+    <a class="btn ${p.feat?"btn-accent":"btn-line"} btn-block" href="${wa(`Olá! Quero assinar o plano de ${p.mb} Mega por R$ ${p.int},${p.c}/mês.`)}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Assinar</a>
+  </article>`).join("");
+
+document.getElementById("combos-list").innerHTML = COMBOS.map(p => `
+  <article class="combo">
+    <div class="speed num">${p.mb}<small>Mega</small></div>
+    <div class="inc">
+      <div><h4>Já incluso</h4><div class="apps" style="margin-top:8px">${p.base.map(chip).join("")}</div></div>
+      <div><h4>${p.choose[0].length>1?"Escolha um pacote":"Escolha um app"}</h4>
+        <div class="alt" style="margin-top:8px">${p.choose.map((g,i)=>(i?'<span class="or">ou</span>':'')+`<div class="pack">${g.map(chip).join('<span class="and">+</span>')}</div>`).join("")}</div>
+      </div>
+    </div>
+    ${price(p)}
+    <p class="note">Com desconto de pontualidade</p>
+    <a class="btn btn-line btn-block" href="${wa(`Olá! Quero o combo de ${p.mb} Mega com streaming por R$ ${p.int},${p.c}/mês.`)}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Quero este combo</a>
+  </article>`).join("");
+
+document.querySelectorAll(".js-wa").forEach(a => { a.href = wa(a.dataset.msg); a.target = "_blank"; a.rel = "noopener"; });
+
+// Recomendador
+const WHY = {
+  200:"Ideal para navegar, redes sociais e aulas online.",
+  400:"Bom para séries em HD e alguns aparelhos ligados.",
+  600:"Streaming em vários aparelhos ao mesmo tempo.",
+  800:"Folga para jogos, chamadas de vídeo e casa cheia."
+};
+function recommend(){
+  const s = +document.querySelector('input[name="pessoas"]:checked').value + +document.querySelector('input[name="uso"]:checked').value;
+  const plan = PLANS[Math.min(s,3)];
+  document.getElementById("r-mb").innerHTML = plan.mb + "<small>Mega</small>";
+  document.getElementById("r-why").textContent = WHY[plan.mb];
+  document.getElementById("r-pr").textContent = `R$ ${plan.int},${plan.c}`;
+  const cta = document.getElementById("r-cta");
+  cta.href = wa(`Olá! O site me indicou o plano de ${plan.mb} Mega por R$ ${plan.int},${plan.c}/mês. Quero assinar.`);
+  cta.target = "_blank"; cta.rel = "noopener";
+}
+document.querySelectorAll('.reco input').forEach(i => i.addEventListener("change", recommend));
+recommend();
+
+// Cobertura
+const cep = document.getElementById("f-cep");
+cep.addEventListener("input", () => {
+  const d = cep.value.replace(/\D/g,"").slice(0,8);
+  cep.value = d.length > 5 ? d.slice(0,5) + "-" + d.slice(5) : d;
+});
+document.getElementById("cep-form").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.target, msg = document.getElementById("formmsg");
+  const nome = f.nome.value.trim(), c = f.cep.value.trim(), num = f.num.value.trim(), bairro = f.bairro.value.trim();
+  if (c.replace(/\D/g,"").length !== 8) { msg.textContent = "Digite o CEP com 8 números, por exemplo 72910-000."; f.cep.focus(); return; }
+  if (!num && !bairro) { msg.textContent = "Informe a quadra/lote ou o bairro para conferirmos o endereço."; f.num.focus(); return; }
+  const texto = `Olá! Quero saber se a Mage Telecom atende meu endereço.\nNome: ${nome||"-"}\nCEP: ${c}\nEndereço: ${num||"-"}\nBairro: ${bairro||"-"}`;
+  msg.innerHTML = `Pronto. <a href="${wa(texto)}" target="_blank" rel="noopener">Abrir a conversa no WhatsApp</a> para enviar seus dados.`;
+});
+
+// Copiar telefone
+document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", () => {
+  const done = () => { b.textContent = "Copiado"; setTimeout(() => b.textContent = "Copiar", 1600); };
+  const fallback = () => { const r = document.createRange(); r.selectNodeContents(document.getElementById("tel")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+  if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.copy).then(done).catch(fallback); else fallback();
+}));
+</script>
+</body>
+</html>
