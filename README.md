@@ -11,15 +11,16 @@ MAGE TELECOM LTDA · CNPJ 48.527.149/0001-50 · Quadra 22, Lote 15, Sala 02.
 
 ## Seções
 
-Topo com recomendador de plano, planos de 200 a 800 Mega, combos com streaming
-(com comparação de economia), vantagens, consulta de cobertura via WhatsApp,
-dúvidas frequentes e rodapé com contato.
+Topo em mosaico com recomendador de plano, abas Internet / Internet + Streaming
+(com comparação de economia nos combos), vantagens, consulta de cobertura via
+WhatsApp, teste de velocidade, dúvidas frequentes e rodapé com área do cliente.
 
 ## Onde editar
 
 Tudo fica no bloco `<script>` no fim do `index.html`:
 
 - `WHATSAPP` — número usado em todos os botões (DDI 55 + número).
+- `AREA_CLIENTE_URL` — link da área do cliente / segunda via. Vazio = o botão abre o WhatsApp pedindo a segunda via.
 - `PLANS` — velocidade, preço e textos de cada plano.
 - `COMBOS` — combos e apps inclusos.
 - `AVULSO` — preço dos apps assinados à parte, usado na conta de economia (consultado em out/2026).
