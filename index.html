@@ -155,6 +155,28 @@ section{padding-block:96px 0}
 .pack{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .pack .and{color:var(--muted);font-weight:600}
 .combo .note{font-size:.82rem;color:var(--muted);margin:-10px 0 0}
+.save{display:grid;gap:10px;padding:14px;border-radius:14px;background:var(--bg);border:1px dashed var(--line)}
+.save-rows{display:grid;gap:4px;font-size:.88rem;color:var(--muted)}
+.save-rows div{display:flex;justify-content:space-between;gap:12px}
+.save-rows .tot{color:var(--ink);font-weight:600;padding-top:6px;margin-top:2px;border-top:1px solid var(--line)}
+.save-rows s{text-decoration-thickness:1.5px;text-decoration-color:#C0392B}
+.save-pill{justify-self:start;font-size:.85rem;font-weight:600;padding:6px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent-ink)}
+.fine{font-size:.8rem;color:var(--muted);margin:16px 0 0;max-width:90ch}
+
+.mbar{display:none}
+@media (max-width:760px){
+  .mbar{display:flex;align-items:center;gap:12px;position:fixed;left:0;right:0;bottom:0;z-index:9;
+    padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+    background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+    transform:translateY(0);transition:transform .25s ease}
+  .mbar.off{transform:translateY(110%)}
+  .mbar .t{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+  .mbar .t small{font-size:.75rem;color:var(--muted)}
+  .mbar .t b{font-family:var(--f-display);font-weight:600;font-size:1.02rem}
+  .mbar .btn{margin-left:auto;padding:12px 16px}
+  .float-wa{display:none}
+  footer{padding-bottom:110px}
+}
 .combo .btn{margin-top:auto}
 
 /* Benefits */
@@ -292,6 +314,7 @@ footer a{color:#fff}
         <p>Audiolivros, música, filmes e desenhos junto com a sua internet, numa conta só.</p>
       </div>
       <div class="combos" id="combos-list"></div>
+      <p class="fine">Comparação usando o plano mais barato de cada app assinado direto no site do serviço (HBO Max básico com anúncios R$ 29,90; Disney+ padrão com anúncios R$ 29,90; Deezer Premium R$ 24,90), valores consultados em outubro de 2026. Ubook Plus e PlayKids não entram na conta.</p>
     </div>
   </section>
 
@@ -367,6 +390,11 @@ footer a{color:#fff}
   </div>
 </footer>
 
+<div class="mbar off" id="mbar" aria-label="Assinatura rápida">
+  <div class="t"><small>Mais escolhido</small><b class="num">600 Mega · R$ 109,90/mês</b></div>
+  <a class="btn btn-accent js-wa" data-msg="Olá! Quero assinar o plano de 600 Mega por R$ 109,90/mês." href="#"><svg><use href="#i-wa"/></svg>Assinar</a>
+</div>
+
 <a class="float-wa js-wa" data-msg="Olá! Vim pelo site e quero saber mais sobre os planos da Mage Telecom." href="#" aria-label="Falar no WhatsApp"><svg><use href="#i-wa"/></svg></a>
 
 <script>
@@ -389,11 +417,15 @@ const APPS = {
   "Disney+":   {mk:"D+",c:"#0F3B7D", img:""},
   "PlayKids":  {mk:"P", c:"#8B3DDB", img:""}
 };
+/* Preços avulsos dos apps (plano mais barato de cada um), consultados em outubro/2026. Atualize se mudarem. */
+const AVULSO = {"HBO Max":29.90, "Disney+":29.90, "Deezer":24.90};
 const COMBOS = [
-  {mb:400, int:"109", c:"90", base:["Ubook Plus"], choose:[["Deezer"],["PlayKids"]]},
-  {mb:600, int:"119", c:"90", base:["Ubook Plus"], choose:[["HBO Max"],["Disney+"],["PlayKids"]]},
-  {mb:800, int:"149", c:"90", base:["Ubook Plus"], choose:[["HBO Max","Deezer"],["Disney+","PlayKids"]]}
+  {mb:400, int:"109", c:"90", base:["Ubook Plus"], choose:[["Deezer"],["PlayKids"]], ex:["Deezer"]},
+  {mb:600, int:"119", c:"90", base:["Ubook Plus"], choose:[["HBO Max"],["Disney+"],["PlayKids"]], ex:["HBO Max"]},
+  {mb:800, int:"149", c:"90", base:["Ubook Plus"], choose:[["HBO Max","Deezer"],["Disney+","PlayKids"]], ex:["HBO Max","Deezer"]}
 ];
+const brl = v => "R$ " + v.toFixed(2).replace(".", ",");
+const val = p => +(p.int + "." + p.c);
 
 const chip = n => { const a = APPS[n];
   return a.img ? `<span class="app"><img src="${a.img}" alt="${n}"></span>`
@@ -419,12 +451,32 @@ document.getElementById("combos-list").innerHTML = COMBOS.map(p => `
         <div class="alt" style="margin-top:8px">${p.choose.map((g,i)=>(i?'<span class="or">ou</span>':'')+`<div class="pack">${g.map(chip).join('<span class="and">+</span>')}</div>`).join("")}</div>
       </div>
     </div>
+    ${(() => {
+      const net = val(PLANS.find(x => x.mb === p.mb));
+      const apps = p.ex.reduce((t,a) => t + AVULSO[a], 0);
+      const sep = net + apps, save = sep - val(p);
+      return `<div class="save">
+        <div class="save-rows">
+          <div><span>Internet ${p.mb} Mega</span><span class="num">${brl(net)}</span></div>
+          ${p.ex.map(a => `<div><span>${a} assinado à parte</span><span class="num">${brl(AVULSO[a])}</span></div>`).join("")}
+          <div class="tot"><span>Separado, por mês</span><s class="num">${brl(sep)}</s></div>
+        </div>
+        <span class="save-pill">Economia de <b class="num">${brl(save)}</b>/mês + Ubook Plus</span>
+      </div>`;
+    })()}
     ${price(p)}
-    <p class="note">Com desconto de pontualidade</p>
+    <p class="note">No combo, com desconto de pontualidade</p>
     <a class="btn btn-line btn-block" href="${wa(`Olá! Quero o combo de ${p.mb} Mega com streaming por R$ ${p.int},${p.c}/mês.`)}" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Quero este combo</a>
   </article>`).join("");
 
 document.querySelectorAll(".js-wa").forEach(a => { a.href = wa(a.dataset.msg); a.target = "_blank"; a.rel = "noopener"; });
+
+// Barra fixa no celular: aparece depois que o topo sai da tela
+(() => {
+  const bar = document.getElementById("mbar"), hero = document.querySelector(".hero");
+  if (!("IntersectionObserver" in window)) { bar.classList.remove("off"); return; }
+  new IntersectionObserver(([e]) => bar.classList.toggle("off", e.isIntersecting), {threshold:0}).observe(hero);
+})();
 
 // Recomendador
 const WHY = {
