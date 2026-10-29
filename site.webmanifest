@@ -1,0 +1,14 @@
+{
+  "name": "Mage Telecom",
+  "short_name": "Mage",
+  "description": "Internet em Águas Lindas de Goiás",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#F4F6F3",
+  "theme_color": "#F4F6F3",
+  "lang": "pt-BR",
+  "icons": [
+    {"src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png"}
+  ]
+}

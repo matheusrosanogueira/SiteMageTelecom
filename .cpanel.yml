@@ -10,5 +10,5 @@ deployment:
   tasks:
     - export DEPLOYPATH=$HOME/public_html
     - /bin/mkdir -p $DEPLOYPATH/assets
-    - /bin/cp -f index.html $DEPLOYPATH/
+    - /bin/cp -f index.html robots.txt sitemap.xml site.webmanifest favicon.ico $DEPLOYPATH/
     - /bin/cp -Rf assets/. $DEPLOYPATH/assets/
