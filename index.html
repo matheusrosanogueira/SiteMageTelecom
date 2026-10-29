@@ -319,10 +319,59 @@ footer a:hover{color:var(--dark-ink)}
   footer{padding-bottom:110px}
 }
 
+/* ===== Movimento ===== */
+.progress{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:3px;z-index:11;transform-origin:0 50%;transform:scaleX(0);
+  background:linear-gradient(90deg,#2FB81A,#7BE35A);pointer-events:none}
+header.top{transition:box-shadow .3s,background .3s}
+header.top.scrolled{box-shadow:0 8px 30px -18px rgba(11,16,13,.35)}
+
+.hero{position:relative;overflow:hidden}
+#fiber{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.hero > .wrap{position:relative;z-index:1}
+
+.split .ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.split .ln > span{display:inline-block;animation:rise 1s cubic-bezier(.16,.8,.2,1) backwards}
+.split .ln:nth-child(2) > span{animation-delay:.12s}
+@keyframes rise{from{transform:translateY(105%)}}
+.hero h1 .g{position:relative;display:inline-block}
+.squig{position:absolute;left:0;right:0;bottom:-.12em;width:100%;height:.22em;overflow:visible}
+.squig path{fill:none;stroke:#2FB81A;stroke-width:5;stroke-linecap:round;stroke-dasharray:240;stroke-dashoffset:240;animation:draw 1s .9s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.in{animation:fadeUp .9s cubic-bezier(.16,.8,.2,1) backwards}
+.in.d1{animation-delay:.25s}.in.d2{animation-delay:.4s}
+@keyframes fadeUp{from{opacity:.0;transform:translateY(18px)}}
+.hero-photo img{transform:scale(1.08) translateY(var(--py,0px));will-change:transform}
+
+.ticker{margin-top:56px;padding-block:22px;border-block:1px solid var(--line);background:var(--surface);overflow:hidden;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ticker .track{display:flex;width:max-content;animation:marquee 38s linear infinite}
+.ticker:hover .track{animation-play-state:paused}
+.ticker .it{display:flex;align-items:center;gap:18px;padding-right:18px;font-family:var(--f-display);font-weight:500;font-size:clamp(1.05rem,2vw,1.5rem);letter-spacing:-.02em;white-space:nowrap;color:var(--ink-2)}
+.ticker .it b{font-weight:600;color:var(--ink)}
+.ticker .sep{width:9px;height:9px;border-radius:50%;background:var(--accent);flex:none}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+.glow::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;
+  background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),rgba(47,184,26,.14),transparent 45%)}
+.glow:hover::after{opacity:1}
+.card.feat.glow::after{background:radial-gradient(380px circle at var(--mx,50%) var(--my,50%),rgba(85,214,58,.22),transparent 45%)}
+.card{transform-style:preserve-3d;will-change:transform}
+.card.tilting{transition:transform .08s linear,box-shadow .3s}
+
+.panel .card{animation:cardIn .7s cubic-bezier(.16,.8,.2,1) backwards}
+.panel .card:nth-child(2){animation-delay:.07s}.panel .card:nth-child(3){animation-delay:.14s}.panel .card:nth-child(4){animation-delay:.21s}
+@keyframes cardIn{from{opacity:.25;transform:translateY(22px) scale(.98)}}
+
+.btn-accent{position:relative;overflow:hidden}
+.btn-accent::before{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;transform:skewX(-20deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:shine 4.5s ease-in-out infinite}
+@keyframes shine{0%,70%{left:-60%}100%{left:130%}}
+.btn-accent > *{position:relative}
+
 /* Animação ao rolar: o conteúdo já está visível; só desliza para o lugar */
 .rv{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
-.rv.pre{transform:translateY(28px)}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.rv.pre{transform:none}}
+.rv.pre{transform:translateY(36px) scale(.985)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.rv.pre{transform:none}.squig path{stroke-dashoffset:0}.hero-photo img{transform:none}.ticker .track{flex-wrap:wrap;width:auto}}
 </style>
 </head>
 <body>
@@ -332,7 +381,8 @@ footer a:hover{color:var(--dark-ink)}
   <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></g></symbol>
 </svg>
 
-<header class="top">
+<div class="progress" id="progress" aria-hidden="true"></div>
+<header class="top" id="top">
   <div class="wrap">
     <a class="logo" href="#inicio" aria-label="Mage Telecom, início"><img class="brandlogo on-light" src="assets/logo-mage.webp" alt="Mage Telecom" width="700" height="200"><img class="brandlogo on-dark" src="assets/logo-mage-branca.webp" alt="" width="700" height="200"></a>
     <nav class="menu" aria-label="Principal">
@@ -347,18 +397,19 @@ footer a:hover{color:var(--dark-ink)}
 
 <main id="inicio">
   <div class="hero">
+    <canvas id="fiber" aria-hidden="true"></canvas>
     <div class="wrap">
       <div class="hero-head">
         <div class="hero-copy">
           <span class="loc"><i></i>Águas Lindas de Goiás</span>
-          <h1>Internet rápida.<br>Atendimento <span class="g">daqui.</span></h1>
-          <p class="lead">Planos de 200 a 800 Mega e combos com streaming, de um provedor que está na sua cidade.</p>
-          <div class="cta">
+          <h1 class="split"><span class="ln"><span>Internet rápida.</span></span><span class="ln"><span>Atendimento <span class="g">daqui.<svg class="squig" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 40 4, 70 18, 105 9 S 170 4, 197 11"/></svg></span></span></span></h1>
+          <p class="lead in d1">Planos de 200 a 800 Mega e combos com streaming, de um provedor que está na sua cidade.</p>
+          <div class="cta in d2">
             <a class="btn btn-accent" href="#planos" data-tab="internet">Ver planos</a>
             <a class="btn btn-line" href="#cobertura">Consultar endereço</a>
           </div>
         </div>
-        <figure class="hero-photo">
+        <figure class="hero-photo in d1" id="hero-photo">
           <img src="assets/foto-1-hero-celular.webp" alt="Mulher sorrindo enquanto usa o celular no sofá de casa" width="900" height="1117">
           <figcaption class="chip"><span class="dot"></span><span><small>Mais escolhido</small><b class="num">600 Mega · R$ 109,90/mês</b></span></figcaption>
         </figure>
@@ -367,7 +418,7 @@ footer a:hover{color:var(--dark-ink)}
       <div class="bento">
         <div class="tile t-speed rv">
           <div>
-            <div class="big num">800<small>Mega</small></div>
+            <div class="big num"><span data-count="800">800</span><small>Mega</small></div>
             <p>Velocidade para jogar, assistir e trabalhar com a casa toda conectada.</p>
           </div>
           <div class="bars" aria-hidden="true" id="bars"></div>
@@ -425,6 +476,10 @@ footer a:hover{color:var(--dark-ink)}
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="track" id="ticker"></div>
   </div>
 
   <section id="planos">
@@ -739,11 +794,117 @@ document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", () =
   new IntersectionObserver(([e]) => bar.classList.toggle("off", e.isIntersecting)).observe(hero);
 })();
 
+/* ===== Movimento ===== */
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const fine = matchMedia("(pointer: fine)").matches;
+
+// Faixa de destaques
+(() => {
+  const items = ["<b>Até 800 Mega</b>","Streaming incluso nos combos","<b>HBO Max</b> · Disney+ · Deezer","Atendimento em Águas Lindas","<b>Desconto de pontualidade</b>","Contratação pelo WhatsApp","Ubook Plus e PlayKids"];
+  const one = items.map(t => `<span class="it">${t}<span class="sep"></span></span>`).join("");
+  document.getElementById("ticker").innerHTML = one + one;
+})();
+
+// Barra de progresso, topo com sombra e parallax da foto
+(() => {
+  const bar = document.getElementById("progress"), top = document.getElementById("top"), photo = document.querySelector("#hero-photo img");
+  let ticking = false;
+  const update = () => {
+    const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? Math.min(y / max, 1) : 0})`;
+    top.classList.toggle("scrolled", y > 8);
+    if (!calm && photo && y < innerHeight * 1.5) photo.style.setProperty("--py", (y * 0.06).toFixed(1) + "px");
+    ticking = false;
+  };
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, {passive:true});
+  update();
+})();
+
+// Contador do 800 Mega
+(() => {
+  if (calm) return;
+  document.querySelectorAll("[data-count]").forEach(el => {
+    const end = +el.dataset.count, t0 = performance.now() + 350, dur = 1600;
+    const step = now => {
+      const k = Math.min(Math.max((now - t0) / dur, 0), 1), e = 1 - Math.pow(1 - k, 4);
+      el.textContent = Math.round(end * e);
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+})();
+
+// Brilho que segue o mouse e leve inclinação nos cartões de plano
+(() => {
+  if (!fine || calm) return;
+  document.querySelectorAll(".card, .tile:not(.ph), .banner").forEach(el => {
+    el.classList.add("glow");
+    el.addEventListener("pointermove", e => {
+      const r = el.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      el.style.setProperty("--mx", x + "px"); el.style.setProperty("--my", y + "px");
+      if (el.classList.contains("card")) {
+        el.classList.add("tilting");
+        const rx = ((y / r.height) - .5) * -5, ry = ((x / r.width) - .5) * 6;
+        el.style.transform = `perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-4px)`;
+      }
+    });
+    el.addEventListener("pointerleave", () => { el.classList.remove("tilting"); el.style.transform = ""; });
+  });
+})();
+
+// Rede de fibra animada no fundo do topo
+(() => {
+  const cv = document.getElementById("fiber"), hero = cv.parentElement, ctx = cv.getContext("2d");
+  let W = 0, H = 0, dpr = 1, lines = [], running = true, last = 0;
+  const build = () => {
+    dpr = Math.min(devicePixelRatio || 1, 2);
+    W = hero.clientWidth; H = hero.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = W < 700 ? 5 : 8;
+    lines = Array.from({length:n}, (_, i) => {
+      const t = i / (n - 1);
+      return {
+        p0:[-60, H * (0.15 + 0.5 * t)], p1:[W * 0.35, H * (0.05 + 0.7 * Math.sin(t * 3.1))],
+        p2:[W * 0.65, H * (0.6 - 0.45 * t)], p3:[W + 60, H * (0.1 + 0.55 * (1 - t))],
+        pulses:Array.from({length:2}, () => ({u:Math.random(), v:0.00008 + Math.random() * 0.00012}))
+      };
+    });
+  };
+  const pt = (L, u) => { const a = 1 - u, b = u;
+    return [a*a*a*L.p0[0] + 3*a*a*b*L.p1[0] + 3*a*b*b*L.p2[0] + b*b*b*L.p3[0],
+            a*a*a*L.p0[1] + 3*a*a*b*L.p1[1] + 3*a*b*b*L.p2[1] + b*b*b*L.p3[1]]; };
+  const draw = now => {
+    const dt = last ? Math.min(now - last, 50) : 16; last = now;
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineWidth = 1;
+    lines.forEach(L => {
+      ctx.strokeStyle = "rgba(47,184,26,.10)";
+      ctx.beginPath(); ctx.moveTo(...L.p0); ctx.bezierCurveTo(...L.p1, ...L.p2, ...L.p3); ctx.stroke();
+      L.pulses.forEach(P => {
+        if (!calm) P.u = (P.u + P.v * dt) % 1;
+        for (let k = 0; k < 14; k++) {
+          const u = P.u - k * 0.006; if (u < 0) continue;
+          const [x, y] = pt(L, u), a = (1 - k / 14) * .55;
+          ctx.fillStyle = `rgba(47,184,26,${a.toFixed(3)})`;
+          ctx.beginPath(); ctx.arc(x, y, k === 0 ? 2.6 : 2 - k * .1, 0, Math.PI * 2); ctx.fill();
+        }
+      });
+    });
+    if (running && !calm) requestAnimationFrame(draw);
+  };
+  build(); requestAnimationFrame(draw);
+  let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { build(); if (calm) requestAnimationFrame(draw); }, 150); });
+  if ("IntersectionObserver" in window) new IntersectionObserver(([e]) => {
+    const was = running; running = e.isIntersecting;
+    if (running && !was && !calm) { last = 0; requestAnimationFrame(draw); }
+  }).observe(hero);
+})();
+
 /* ===== Animação ao rolar (o conteúdo já aparece; só desliza para o lugar) ===== */
 (() => {
   if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const els = [...document.querySelectorAll(".rv")].filter(el => el.getBoundingClientRect().top > innerHeight);
-  els.forEach(el => el.classList.add("pre"));
+  els.forEach((el, i) => { el.classList.add("pre"); el.style.transitionDelay = ((i % 3) * 70) + "ms"; });
   const io = new IntersectionObserver(entries => entries.forEach(e => {
     if (e.isIntersecting) { e.target.classList.remove("pre"); io.unobserve(e.target); }
   }), {rootMargin:"0px 0px -8% 0px"});
