@@ -358,8 +358,13 @@ header.top.scrolled{box-shadow:0 8px 30px -18px rgba(11,16,13,.35)}
 .card{transform-style:preserve-3d;will-change:transform}
 .card.tilting{transition:transform .08s linear,box-shadow .3s}
 
-.panel .card{animation:cardIn .7s cubic-bezier(.16,.8,.2,1) backwards}
-.panel .card:nth-child(2){animation-delay:.07s}.panel .card:nth-child(3){animation-delay:.14s}.panel .card:nth-child(4){animation-delay:.21s}
+.panel.play .card{animation:cardIn .8s cubic-bezier(.16,.8,.2,1) backwards}
+.panel.play .card:nth-child(2){animation-delay:.08s}.panel.play .card:nth-child(3){animation-delay:.16s}.panel.play .card:nth-child(4){animation-delay:.24s}
+.panel.play .banner{animation:cardIn .8s cubic-bezier(.16,.8,.2,1) backwards}
+.panel.play .banner + .combos .card{animation-delay:.12s}.panel.play .banner + .combos .card:nth-child(2){animation-delay:.2s}.panel.play .banner + .combos .card:nth-child(3){animation-delay:.28s}
+details[open] p{animation:fadeUp .5s cubic-bezier(.16,.8,.2,1)}
+summary{transition:color .2s}
+summary:hover{color:var(--accent-ink)}
 @keyframes cardIn{from{opacity:.25;transform:translateY(22px) scale(.98)}}
 
 .btn-accent{position:relative;overflow:hidden}
@@ -484,11 +489,11 @@ header.top.scrolled{box-shadow:0 8px 30px -18px rgba(11,16,13,.35)}
 
   <section id="planos">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head rv">
         <div><span class="kicker">Planos</span><h2>Escolha a sua velocidade.</h2></div>
         <p>Só internet ou internet com streaming. Contrate pelo WhatsApp e fale direto com a nossa equipe.</p>
       </div>
-      <div class="tabs" role="tablist" aria-label="Tipo de plano">
+      <div class="tabs rv" role="tablist" aria-label="Tipo de plano">
         <button role="tab" id="tab-internet" aria-controls="panel-internet" aria-selected="true">Internet</button>
         <button role="tab" id="tab-combos" aria-controls="panel-combos" aria-selected="false" tabindex="-1">Internet + Streaming<span class="tag">Economize</span></button>
       </div>
@@ -510,7 +515,7 @@ header.top.scrolled{box-shadow:0 8px 30px -18px rgba(11,16,13,.35)}
 
   <section id="vantagens">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head rv">
         <div><span class="kicker">Por que a Mage</span><h2>Perto de você, de verdade.</h2></div>
       </div>
       <div class="why">
@@ -574,17 +579,17 @@ header.top.scrolled{box-shadow:0 8px 30px -18px rgba(11,16,13,.35)}
 
   <section id="duvidas">
     <div class="wrap faq-wrap">
-      <div class="side">
+      <div class="side rv">
         <span class="kicker">Dúvidas frequentes</span>
         <h2>Perguntas de quem vai assinar.</h2>
         <p>Não achou o que procurava? Chame a gente no WhatsApp.</p>
       </div>
       <div class="faq">
-        <details><summary>Como faço para contratar?</summary><p>Escolha o plano e toque em "Assinar". A conversa abre no nosso WhatsApp com o plano já escrito na mensagem. Se preferir, ligue para o 0800 110 9000 ou visite o escritório.</p></details>
-        <details><summary>Como sei se a Mage atende o meu endereço?</summary><p>Preencha o formulário de cobertura com seu CEP e endereço. A equipe responde confirmando a disponibilidade na sua rua.</p></details>
-        <details><summary>Como funciona o desconto de pontualidade?</summary><p>O valor dos combos já está com o desconto aplicado. Ele vale para as faturas pagas até o vencimento.</p></details>
-        <details><summary>Já sou cliente. Como peço a segunda via?</summary><p>Acesse a Área do cliente no topo do site ou peça pelo WhatsApp e pelo 0800 110 9000, informando o nome ou CPF do titular.</p></details>
-        <details><summary>Posso trocar de plano depois?</summary><p>Pode. Fale com a gente pelo WhatsApp e indicamos a melhor opção para o seu uso atual.</p></details>
+        <details class="rv"><summary>Como faço para contratar?</summary><p>Escolha o plano e toque em "Assinar". A conversa abre no nosso WhatsApp com o plano já escrito na mensagem. Se preferir, ligue para o 0800 110 9000 ou visite o escritório.</p></details>
+        <details class="rv"><summary>Como sei se a Mage atende o meu endereço?</summary><p>Preencha o formulário de cobertura com seu CEP e endereço. A equipe responde confirmando a disponibilidade na sua rua.</p></details>
+        <details class="rv"><summary>Como funciona o desconto de pontualidade?</summary><p>O valor dos combos já está com o desconto aplicado. Ele vale para as faturas pagas até o vencimento.</p></details>
+        <details class="rv"><summary>Já sou cliente. Como peço a segunda via?</summary><p>Acesse a Área do cliente no topo do site ou peça pelo WhatsApp e pelo 0800 110 9000, informando o nome ou CPF do titular.</p></details>
+        <details class="rv"><summary>Posso trocar de plano depois?</summary><p>Pode. Fale com a gente pelo WhatsApp e indicamos a melhor opção para o seu uso atual.</p></details>
       </div>
     </div>
   </section>
@@ -604,7 +609,7 @@ header.top.scrolled{box-shadow:0 8px 30px -18px rgba(11,16,13,.35)}
 
 <footer id="contato">
   <div class="wrap">
-    <div class="grid">
+    <div class="grid rv">
       <div>
         <a class="logo" href="#inicio"><img class="brandlogo" src="assets/logo-mage-branca.webp" alt="Mage Telecom" width="700" height="200"></a>
         <p style="margin-top:18px;max-width:30ch">Internet para casas e empresas de Águas Lindas de Goiás.</p>
@@ -683,7 +688,7 @@ const price = p => `<div class="price"><span class="rs">R$</span><span class="in
 document.getElementById("plans").innerHTML = PLANS.map(p => `
   <article class="card${p.feat?" feat":""}">
     ${p.feat?'<span class="badge">Mais escolhido</span>':""}
-    <div class="speed num">${p.mb}<small>Mega</small></div>
+    <div class="speed num"><span data-count="${p.mb}">${p.mb}</span><small>Mega</small></div>
     <p class="fit">${p.fit}</p>
     ${price(p)}
     <ul class="checks">${p.checks.map(c=>`<li><svg><use href="#i-check"/></svg>${c}</li>`).join("")}</ul>
@@ -695,7 +700,7 @@ document.getElementById("combos-list").innerHTML = COMBOS.map(p => {
   const sep = net + p.ex.reduce((t,a) => t + AVULSO[a], 0);
   return `<article class="card${p.feat?" feat":""}">
     ${p.feat?'<span class="badge">Melhor custo</span>':""}
-    <div class="speed num">${p.mb}<small>Mega</small></div>
+    <div class="speed num"><span data-count="${p.mb}">${p.mb}</span><small>Mega</small></div>
     <div class="inc">
       <div><h4>Já incluso</h4><div class="apps">${p.base.map(chip).join("")}</div></div>
       <div><h4>${p.choose[0].length>1?"Escolha um pacote":"Escolha um app"}</h4>
@@ -732,7 +737,7 @@ function showTab(name, focus){
     b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1;
     const panel = document.getElementById("panel-" + k);
     panel.hidden = !on;
-    if (on) { panel.style.animation = "none"; panel.offsetHeight; panel.style.animation = ""; }
+    if (on && !matchMedia("(prefers-reduced-motion: reduce)").matches) playPanel(panel);
   });
   if (focus) tabs[name].focus();
 }
@@ -742,7 +747,6 @@ document.querySelector(".tabs").addEventListener("keydown", e => {
   if (e.key === "ArrowRight" || e.key === "ArrowLeft") showTab(tabs.internet.getAttribute("aria-selected") === "true" ? "combos" : "internet", true);
 });
 document.querySelectorAll("[data-tab]").forEach(a => a.addEventListener("click", () => showTab(a.dataset.tab)));
-if (location.hash === "#combos") { showTab("combos"); document.getElementById("planos").scrollIntoView(); }
 
 /* ===== Recomendador ===== */
 const WHY = {
@@ -820,11 +824,11 @@ const fine = matchMedia("(pointer: fine)").matches;
   update();
 })();
 
-// Contador do 800 Mega
-(() => {
+// Contadores: 800 Mega no topo ao carregar; velocidades dos planos quando aparecem
+function countUp(root, delay = 0, dur = 1400){
   if (calm) return;
-  document.querySelectorAll("[data-count]").forEach(el => {
-    const end = +el.dataset.count, t0 = performance.now() + 350, dur = 1600;
+  root.querySelectorAll("[data-count]").forEach((el, i) => {
+    const end = +el.dataset.count, t0 = performance.now() + delay + i * 80;
     const step = now => {
       const k = Math.min(Math.max((now - t0) / dur, 0), 1), e = 1 - Math.pow(1 - k, 4);
       el.textContent = Math.round(end * e);
@@ -832,6 +836,22 @@ const fine = matchMedia("(pointer: fine)").matches;
     };
     requestAnimationFrame(step);
   });
+}
+countUp(document.querySelector(".t-speed"), 350, 1600);
+
+// Cartões de plano entram quando a seção aparece e a cada troca de aba
+function playPanel(panel){
+  panel.classList.remove("play"); void panel.offsetWidth; panel.classList.add("play");
+  countUp(panel, 150, 1100);
+}
+(() => {
+  const sec = document.getElementById("planos");
+  if (calm || !("IntersectionObserver" in window)) { document.querySelectorAll(".panel").forEach(p => p.classList.add("play")); return; }
+  const io = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    playPanel(document.querySelector(".panel:not([hidden])")); io.disconnect();
+  }, {threshold:0.15});
+  io.observe(sec);
 })();
 
 // Brilho que segue o mouse e leve inclinação nos cartões de plano
@@ -904,12 +924,18 @@ const fine = matchMedia("(pointer: fine)").matches;
 (() => {
   if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const els = [...document.querySelectorAll(".rv")].filter(el => el.getBoundingClientRect().top > innerHeight);
-  els.forEach((el, i) => { el.classList.add("pre"); el.style.transitionDelay = ((i % 3) * 70) + "ms"; });
+  els.forEach(el => {
+    const sibs = [...el.parentElement.children].filter(c => c.classList.contains("rv"));
+    el.classList.add("pre"); el.style.transitionDelay = ((sibs.indexOf(el) % 4) * 80) + "ms";
+  });
   const io = new IntersectionObserver(entries => entries.forEach(e => {
     if (e.isIntersecting) { e.target.classList.remove("pre"); io.unobserve(e.target); }
   }), {rootMargin:"0px 0px -8% 0px"});
   els.forEach(el => io.observe(el));
 })();
+
+// Link direto para os combos (fica no fim para tudo já estar carregado)
+if (location.hash === "#combos") { showTab("combos"); document.getElementById("planos").scrollIntoView(); }
 </script>
 </body>
 </html>
