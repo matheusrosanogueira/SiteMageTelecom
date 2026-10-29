@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
 <meta name="theme-color" content="#F4F6F3">
 <link rel="icon" href="assets/logo-mage.webp">
 <link rel="preload" as="image" href="assets/foto-1-hero-celular.webp">
@@ -13,7 +14,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: claro e premium. Tipografia grande, muito respiro, blocos em mosaico (bento) no topo e nas vantagens.
+/* Tema único claro (não segue o modo escuro do sistema).
+   Layout: claro e premium. Tipografia grande, muito respiro, blocos em mosaico (bento) no topo e nas vantagens.
    Verde da marca só como acento; superfícies brancas sobre um fundo levemente esverdeado. */
 :root{
   --bg:#F4F6F3; --surface:#FFFFFF; --ink:#0B100D; --ink-2:#2A332E; --muted:#68736D; --line:#E4E8E4;
@@ -25,19 +27,8 @@
   --f-display:"Sora",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
   --r-lg:28px; --r-md:20px;
+  color-scheme:light;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#090C0A; --surface:#121714; --ink:#EEF2EF; --ink-2:#C9D1CC; --muted:#93A098; --line:#212924;
-  --accent:#55D63A; --accent-ink:#7CE262; --accent-soft:#132417; --mint:#183A1C;
-  --dark:#161D19; --dark-2:#1E2722; --dark-ink:#F2F5F3; --dark-muted:#9AA59F;
-  --wa:#25C062; --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 40px -20px rgba(0,0,0,.7);
-  --logo-light:none; --logo-dark:block; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#090C0A; --surface:#121714; --ink:#EEF2EF; --ink-2:#C9D1CC; --muted:#93A098; --line:#212924;
-  --accent:#55D63A; --accent-ink:#7CE262; --accent-soft:#132417; --mint:#183A1C;
-  --dark:#161D19; --dark-2:#1E2722; --dark-ink:#F2F5F3; --dark-muted:#9AA59F;
-  --wa:#25C062; --shadow:0 1px 2px rgba(0,0,0,.4),0 18px 40px -20px rgba(0,0,0,.7);
-  --logo-light:none; --logo-dark:block; color-scheme:dark}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -143,9 +134,9 @@ nav.menu a:hover{color:var(--ink)}
 
 /* Chips de apps */
 .apps{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.app{display:inline-flex;align-items:center;gap:7px;padding:7px 12px 7px 10px;border-radius:999px;background:var(--bg);font-weight:600;font-size:.86rem;line-height:1.2;white-space:nowrap}
+.app{display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:999px;background:var(--bg);font-weight:600;font-size:.86rem;line-height:1.2;white-space:nowrap}
 .card.feat .app{background:var(--dark-2);color:var(--dark-ink)}
-.app .mk{width:8px;height:8px;border-radius:50%;flex:none}
+.app .mk{width:26px;height:26px;border-radius:8px;flex:none;display:grid;place-items:center;color:#fff;font:700 .7rem/1 var(--f-display);letter-spacing:-.02em;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
 .app img{height:18px;width:auto;display:block}
 
 /* Seções */
@@ -609,11 +600,11 @@ const PLANS = [
 
 /* Apps dos combos. Para usar a logo oficial, preencha "img" com o caminho do arquivo (ex.: "assets/deezer.svg"). */
 const APPS = {
-  "Ubook Plus":{c:"#E4572E", img:""},
-  "Deezer":    {c:"#A238FF", img:""},
-  "HBO Max":   {c:"#002BE7", img:""},
-  "Disney+":   {c:"#0F3B7D", img:""},
-  "PlayKids":  {c:"#8B3DDB", img:""}
+  "Ubook Plus":{mk:"U",   c:"linear-gradient(135deg,#F28C38,#E4572E)", img:""},
+  "Deezer":    {mk:"♥",   c:"linear-gradient(135deg,#B85CFF,#7B2FF7)", img:""},
+  "HBO Max":   {mk:"HBO", c:"linear-gradient(135deg,#3D2BFF,#0A1A8C)", img:""},
+  "Disney+":   {mk:"D+",  c:"linear-gradient(135deg,#1E6FD9,#0B2A63)", img:""},
+  "PlayKids":  {mk:"P",   c:"linear-gradient(135deg,#B05CFF,#6A2BD1)", img:""}
 };
 /* Preço avulso de cada app (plano mais barato), consultado em outubro/2026. */
 const AVULSO = {"HBO Max":29.90, "Disney+":29.90, "Deezer":24.90};
@@ -628,7 +619,7 @@ const brl = v => "R$ " + v.toFixed(2).replace(".", ",");
 const val = p => +(p.int + "." + p.c);
 const chip = n => { const a = APPS[n];
   return a.img ? `<span class="app"><img src="${a.img}" alt="${n}"></span>`
-               : `<span class="app"><span class="mk" style="background:${a.c}"></span>${n}</span>`; };
+               : `<span class="app"><span class="mk" style="background:${a.c};${a.mk.length>2?"font-size:.52rem":""}" aria-hidden="true">${a.mk}</span>${n}</span>`; };
 const price = p => `<div class="price"><span class="rs">R$</span><span class="int num">${p.int}</span><span class="cents num">,${p.c}</span><span class="per">/mês</span></div>`;
 
 document.getElementById("plans").innerHTML = PLANS.map(p => `
