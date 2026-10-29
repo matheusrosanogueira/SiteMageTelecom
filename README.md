@@ -34,5 +34,10 @@ Tudo fica no bloco `<script>` no fim do `index.html`:
 
 ## Publicar
 
-Basta enviar `index.html` e a pasta `assets/` para a pasta pública da hospedagem
-(ex.: `public_html`). Não há build nem dependências; as fontes vêm do Google Fonts.
+Não há build nem dependências; as fontes vêm do Google Fonts.
+
+**Pelo cPanel (recomendado):** em *Git Version Control*, clone este repositório e use
+*Manage > Pull or Deploy > Deploy HEAD Commit*. O arquivo `.cpanel.yml` copia
+`index.html` e `assets/` para a pasta pública definida em `DEPLOYPATH`.
+
+**Manual:** envie `index.html` e a pasta `assets/` pelo Gerenciador de Arquivos.

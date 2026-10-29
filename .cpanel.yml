@@ -1,0 +1,14 @@
+---
+# Publicação pelo cPanel (Git Version Control > Manage > Pull or Deploy > Deploy HEAD Commit).
+# Copia só os arquivos do site para a pasta pública. Não apaga nada que já esteja lá.
+#
+# DEPLOYPATH: pasta pública do domínio magetelecom.com.br.
+#   - Se for o domínio principal da conta cPanel:  $HOME/public_html
+#   - Se for domínio adicional (addon), use a "Raiz do documento" mostrada em
+#     cPanel > Domínios, por exemplo: $HOME/magetelecom.com.br
+deployment:
+  tasks:
+    - export DEPLOYPATH=$HOME/public_html
+    - /bin/mkdir -p $DEPLOYPATH/assets
+    - /bin/cp -f index.html $DEPLOYPATH/
+    - /bin/cp -Rf assets/. $DEPLOYPATH/assets/
