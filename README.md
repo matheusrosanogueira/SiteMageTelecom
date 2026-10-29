@@ -26,7 +26,7 @@ WhatsApp, teste de velocidade, dúvidas frequentes e rodapé com área do client
 Tudo fica no bloco `<script>` no fim do `index.html`:
 
 - `WHATSAPP` — número usado em todos os botões (DDI 55 + número).
-- `AREA_CLIENTE_URL` — link da área do cliente / segunda via. Vazio = o botão abre o WhatsApp pedindo a segunda via.
+- `AREA_CLIENTE_URL` — link da área do cliente / segunda via (Central do Assinante). Vazio = o botão abre o WhatsApp pedindo a segunda via.
 - `PLANS` — velocidade, preço e textos de cada plano.
 - `COMBOS` — combos e apps inclusos.
 - `AVULSO` — preço dos apps assinados à parte, usado na conta de economia (consultado em out/2026).
