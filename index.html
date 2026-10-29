@@ -264,13 +264,13 @@ section{padding-block:110px 0}
 .proof b{color:var(--ink)}
 .pi{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--accent-soft);color:var(--accent-ink)}
 .pi svg{width:20px;height:20px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-bottom:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
-.stats > div{padding:30px 28px;display:flex;flex-direction:column;gap:6px}
-.stats > div + div{border-left:1px solid var(--line)}
-.stats b{font-family:var(--f-display);font-weight:600;font-size:clamp(2.2rem,4.4vw,3.4rem);letter-spacing:-.045em;line-height:1}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-bottom:14px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.stats > div{padding:30px 28px;display:flex;flex-direction:column;gap:6px;background:var(--surface);min-width:0}
+.stats b{font-family:var(--f-display);font-weight:600;font-size:clamp(1.9rem,2.9vw,2.6rem);white-space:nowrap;letter-spacing:-.045em;line-height:1}
 .stats > div:first-child b{color:var(--accent-ink)}
 .stats > div > span{color:var(--muted);font-size:.95rem}
-@media (max-width:700px){.stats{grid-template-columns:1fr}.stats > div + div{border-left:0;border-top:1px solid var(--line)}.stats > div{padding:22px}}
+@media (max-width:1000px){.stats{grid-template-columns:1fr 1fr}}
+@media (max-width:460px){.stats{grid-template-columns:1fr}.stats > div{padding:22px}}
 
 /* Como contratar */
 .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;counter-reset:none}
@@ -440,6 +440,7 @@ summary:hover{color:var(--accent-ink)}
       "name": "Mage Telecom",
       "legalName": "MAGE TELECOM LTDA",
       "taxID": "48.527.149/0001-50",
+      "foundingDate": "2022-11-07",
       "description": "Provedor de internet banda larga em Águas Lindas de Goiás, com planos de 200 a 800 Mega e combos com streaming.",
       "url": "https://magetelecom.com.br/",
       "logo": "https://magetelecom.com.br/assets/icon-512.png",
@@ -672,6 +673,7 @@ summary:hover{color:var(--accent-ink)}
         <div><b class="num">+<span data-count="500">500</span></b><span>clientes atendidos em Águas Lindas</span></div>
         <div><b class="num"><span data-count="800">800</span> Mega</b><span>de velocidade máxima</span></div>
         <div><b class="num"><span data-count="5">5</span> apps</b><span>de streaming nos combos</span></div>
+        <div><b class="num">Desde <span data-count="2022" data-from="2010">2022</span></b><span>conectando Águas Lindas</span></div>
       </div>
       <div class="why">
         <figure class="tile ph w1 rv">
@@ -782,7 +784,7 @@ summary:hover{color:var(--accent-ink)}
     <div class="grid rv">
       <div>
         <a class="logo" href="#inicio"><img class="brandlogo" src="assets/logo-mage-branca.webp" alt="Mage Telecom" width="700" height="200"></a>
-        <p style="margin-top:18px;max-width:30ch">Internet para casas e empresas de Águas Lindas de Goiás.</p>
+        <p style="margin-top:18px;max-width:30ch">Internet para casas e empresas de Águas Lindas de Goiás. Conectando a cidade desde 2022.</p>
       </div>
       <div>
         <h4>Atendimento</h4>
@@ -999,10 +1001,10 @@ const fine = matchMedia("(pointer: fine)").matches;
 function countUp(root, delay = 0, dur = 1400){
   if (calm) return;
   root.querySelectorAll("[data-count]").forEach((el, i) => {
-    const end = +el.dataset.count, t0 = performance.now() + delay + i * 80;
+    const end = +el.dataset.count, from = +(el.dataset.from || 0), t0 = performance.now() + delay + i * 80;
     const step = now => {
       const k = Math.min(Math.max((now - t0) / dur, 0), 1), e = 1 - Math.pow(1 - k, 4);
-      el.textContent = Math.round(end * e);
+      el.textContent = Math.round(from + (end - from) * e);
       if (k < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
